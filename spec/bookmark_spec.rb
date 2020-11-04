@@ -1,19 +1,29 @@
 require 'bookmark' #require bookmark.rb lib file
 
 describe Bookmark do
+  before [:each] do
+    Bookmark.add("http://www.makersacademy.com")
+    Bookmark.add("http://www.destroyallsoftware.com")
+    Bookmark.add("http://www.google.com")
+
+
+    @bookmarks = Bookmark.all
+  end
   describe '.all' do
     it 'returns all bookmarks' do
-      con = PG.connect :dbname => 'bookmark_manager_test', :user => 'student'
-      con.exec("INSERT INTO bookmarks(url) VALUES('http://www.makersacademy.com');")
-      con.exec("INSERT INTO bookmarks(url) VALUES('http://www.destroyallsoftware.com');")
-      con.exec("INSERT INTO bookmarks(url) VALUES('http://www.google.com');")
+      #before each method runs within here.
+      expect(@bookmarks).to include("http://www.makersacademy.com")
+      expect(@bookmarks).to include("http://www.destroyallsoftware.com")
+      expect(@bookmarks).to include("http://www.google.com")
+    end
+  end
 
-
-      bookmarks = Bookmark.all
-
-      expect(bookmarks).to include("http://www.makersacademy.com")
-      expect(bookmarks).to include("http://www.destroyallsoftware.com")
-      expect(bookmarks).to include("http://www.google.com")
+  describe '.add' do
+    it 'adds to bookmark list' do
+      #before each method runs within here.
+      expect(@bookmarks).to include("http://www.makersacademy.com")
+      expect(@bookmarks).to include("http://www.destroyallsoftware.com")
+      expect(@bookmarks).to include("http://www.google.com")
     end
   end
 end
