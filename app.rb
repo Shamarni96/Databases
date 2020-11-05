@@ -12,7 +12,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks' do
-    Bookmark.add(params[:url])# saves the user input and takes the paramater given by the user.
+    Bookmark.add(url: params[:url], title: params[:title])# saves the user input and takes the paramater given by the user.
     redirect '/bookmarks'
   end
 
