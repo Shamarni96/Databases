@@ -34,7 +34,6 @@ describe Bookmark do
       #before each method runs within here.
       bookmark = Bookmark.add(url: "http://www.makersacademy.com", title: "Makers Academy")
       persisted_data = persisted_data(id: bookmark.id)
-      p bookmark.id
       expect(bookmark).to be_a Bookmark
       expect(bookmark.id).to eq persisted_data['id']
       expect(bookmark.url).to eq "http://www.makersacademy.com"
