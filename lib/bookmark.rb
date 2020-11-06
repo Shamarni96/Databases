@@ -33,6 +33,20 @@ class Bookmark
     @con.exec("DELETE FROM bookmarks WHERE id = #{id}")
   end
 
+  def self.update(id:, url:, title:)
+    self.environment
+
+    result = @con.exec("UPDATE bookmarks SET url = '#{url}', title = '#{title}' WHERE id = #{id} RETURNING id, url, title;")
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
+  def self.find(id:)
+    self.environment
+
+    result = @con.exec("SELECT * FROM bookmarks WHERE id = #{id}")
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
   private
 
   def self.environment
